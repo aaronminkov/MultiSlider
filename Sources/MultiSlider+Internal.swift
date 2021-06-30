@@ -187,15 +187,25 @@ extension MultiSlider {
         valueLabels.append(valueLabel)
         updateValueLabel(i)
     }
+    
+    func setMinMaxAndStep() {
+        minimumValue = 1
+        maximumValue = CGFloat(customLabels.count)
+        snapStepSize = 1
+    }
 
     func updateValueLabel(_ i: Int) {
-//        let labelValue: CGFloat
-//        if isValueLabelRelative {
-//            labelValue = i > 0 ? value[i] - value[i - 1] : value[i] - minimumValue
-//        } else {
-//            labelValue = value[i]
-//        }
-        valueLabels[i].text = self.customLabels[i]
+        let labelValue: CGFloat
+        if isValueLabelRelative {
+            labelValue = i > 0 ? value[i] - value[i - 1] : value[i] - minimumValue
+        } else {
+            labelValue = value[i]
+        }
+        if customLabels.count > 0 {
+            valueLabels[i].text = customLabels[Int(labelValue)-1]
+        } else {
+            valueLabels[i].text = valueLabelFormatter.string(from: NSNumber(value: Double(labelValue)))
+        }
     }
 
     func updateAllValueLabels() {

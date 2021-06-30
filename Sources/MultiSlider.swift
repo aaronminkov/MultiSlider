@@ -28,7 +28,7 @@ open class MultiSlider: UIControl {
     @IBInspectable open dynamic var maximumValue: CGFloat = 1 { didSet { adjustValuesToStepAndLimits() } }
     @IBInspectable open dynamic var isContinuous: Bool = true
     
-    @IBInspectable open dynamic var customLabels: [String] = [String]()
+    @IBInspectable open dynamic var customLabels: [String] = [String]() { didSet { setMinMaxAndStep() } }
 
     /// snap thumbs to specific values, evenly spaced. (default = 0: allow any value)
     @IBInspectable open dynamic var snapStepSize: CGFloat = 0 { didSet { adjustValuesToStepAndLimits() } }
@@ -250,8 +250,7 @@ open class MultiSlider: UIControl {
         }
     }
 
-    override public init(frame: CGRect, customLabels: [String]) {
-        self.customLabels = customLabels
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
