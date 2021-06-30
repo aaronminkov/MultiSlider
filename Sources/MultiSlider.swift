@@ -250,7 +250,8 @@ open class MultiSlider: UIControl {
         }
     }
 
-    override public init(frame: CGRect) {
+    override public init(frame: CGRect, customLabels: [String]) {
+        self.customLabels = customLabels
         super.init(frame: frame)
         setup()
     }
