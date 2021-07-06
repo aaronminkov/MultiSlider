@@ -178,12 +178,26 @@ extension MultiSlider {
             valueLabel.adjustsFontForContentSizeCategory = true
         }
         let thumbView = thumbViews[i]
-        slideView.constrain(valueLabel, at: valueLabelPosition.perpendicularCenter, to: thumbView)
-        slideView.constrain(
-            valueLabel, at: valueLabelPosition.opposite,
-            to: thumbView, at: valueLabelPosition,
-            diff: -valueLabelPosition.inwardSign * thumbView.diagonalSize / 4
-        )
+        if fixedLabels {
+            if i == 0 {
+                NSLayoutConstraint.activate([
+                    valueLabel.bottomAnchor.constraint(equalTo: slideView.topAnchor, constant: -22),
+                    valueLabel.leftAnchor.constraint(equalTo: slideView.leftAnchor, constant: -13),
+                ])
+            } else {
+                NSLayoutConstraint.activate([
+                    valueLabel.bottomAnchor.constraint(equalTo: slideView.topAnchor, constant: -22),
+                    valueLabel.rightAnchor.constraint(equalTo: slideView.rightAnchor, constant: 13),
+                ])
+            }
+        } else {
+            slideView.constrain(valueLabel, at: valueLabelPosition.perpendicularCenter, to: thumbView)
+            slideView.constrain(
+                valueLabel, at: valueLabelPosition.opposite,
+                to: thumbView, at: valueLabelPosition,
+                diff: -valueLabelPosition.inwardSign * thumbView.diagonalSize / 4
+            )
+        }
         valueLabels.append(valueLabel)
         updateValueLabel(i)
     }

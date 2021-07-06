@@ -67,6 +67,12 @@ open class MultiSlider: UIControl {
             }
         }
     }
+    
+    @objc open var fixedLabels: Bool = false {
+        didSet {
+            valueLabelPosition = .top
+        }
+    }
 
     /// value label shows difference from previous thumb value (true) or absolute value (false = default)
     @IBInspectable open dynamic var isValueLabelRelative: Bool = false {
@@ -250,8 +256,7 @@ open class MultiSlider: UIControl {
         }
     }
 
-    override public init(frame: CGRect, customLabels: [String]) {
-        self.customLabels = customLabels
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
